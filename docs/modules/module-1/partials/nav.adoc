@@ -1,0 +1,6 @@
+* Sub-topic
++
+--
+include::module-1:page$sub-topic/nav.adoc[]
+--
+//the line above should bring in all the nav items from the sub-topic nav as children of the top-level "sub-topic" item

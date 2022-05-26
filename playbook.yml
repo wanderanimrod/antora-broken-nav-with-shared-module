@@ -1,0 +1,8 @@
+site:
+content:
+  sources:
+    - url: /Users/nimrod/instana/antora-deeply-nested-navs
+      branches:
+        - main
+      start_paths:
+        - docs

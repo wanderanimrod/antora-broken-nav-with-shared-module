@@ -1,0 +1,6 @@
+name: module-1
+
+title: Module 1
+version: latest
+nav:
+  - modules/ROOT/nav.adoc
