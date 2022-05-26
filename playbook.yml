@@ -1,8 +1,15 @@
 site:
+  title: My book
+  start_page: book::index.adoc
 content:
   sources:
-    - url: /Users/nimrod/instana/antora-deeply-nested-navs
+    - url: .
       branches:
         - main
       start_paths:
-        - docs
+        - book
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true

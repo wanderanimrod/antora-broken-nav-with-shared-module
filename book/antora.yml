@@ -1,6 +1,6 @@
-name: module-1
+name: book
 
-title: Module 1
+title: Book
 version: latest
 nav:
   - modules/ROOT/nav.adoc
