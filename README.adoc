@@ -1,0 +1,91 @@
+= Deeply nested nav files with `include::`
+
+== What I am trying to do
+
+I am trying to build a navigation menu by composing multiple nav files with the `include::` directive.
+The first nav file includes another nav file which in turn includes another nav file.
+I want the rendered nav to contain 3 levels (equal to the number of levels of nesting I have in the files).
+
+Antora (perhaps AsciiDoc) is mangling the rendered nav and I have failed to get it working! See xref:reproduce[this section] for instructions on how to build the site in this repo to see the error on your machine
+
+== Antora setup
+
+. The configuration in `playbook.yml` is very simple.
+There's just one content source (local), and the ui bundle config (default UI).
+. All the antora assets/files are under the `book` directory at the root of this repo
+. We only have one component called `book`, under the `book` directory.
+. The `book` component has two modules:
+.. `ROOT`: It just has the root navigation file `nav.adoc` and an index page.
+.. `chapter-1`: It has 3 navigation files under `partials`.
+. I am trying to compose the `ROOT/nav.adoc`, `chapter-1/partials/nav.adoc`, `chapter-1/partials/topic-1-nav.adoc`  and `chapter-1/partials/topic-2-nav.adoc`
+into a nav menu with 3 levels.
+. `ROOT/nav.adoc` "imports" `chapter-1/partials/nav.adoc` with and `include::` directive, and `chapter-1/partials/nav.adoc` imports both `topic-1-nav.adoc` and `topic-2-nav.adoc` into it, but not at the top level.
+
+== Expected behaviour
+
+A nav menu that looks like this:
+
+* Chapter 1
+** Topic 1
+*** Lesson 1
+*** Lesson 2
+** Topic 2
+*** Lesson 1
+*** Lesson 2
+
+== Actual behaviour
+
+If you look at the nav menu on the left (xref:#browser[in the browser]), the list items are mangled, and some are missing!
+For quick reference, here's the broken nav menu I get:
+
+* Chapter 1
+** Topic 1
+* Lesson 1
+* Lesson 2
+* Lesson 1
+* Lesson 2
+
+Interestingly, IntelliJ's Asciidoctor extension is also broken, but not in teh same way.
+It preserves all the list items, but the nesting is still broken.
+This is what it renders:
+
+* Chapter 1
+** Topic 1
+* Lesson 1
+* Lesson 2
+* Topic 2
+* Lesson 1
+* Lesson 2
+
+
+== How to reproduce the problem [[reproduce]]
+
+. Clone this repo and install dependencies
++
+[source,bash]
+----
+# clone this repo
+git clone https://github.com/wanderanimrod/antora-deep-nav-nesting.git
+cd antora-deep-nav-nesting
+----
+
+. Build the site
++
+[source,bash]
+----
+npm install
+npx antora generate playbook.yml --stacktrace
+----
+
+. Open the site in the browser
++
+[[browser]]
+[source,bash]
+----
+open build/site/index.html
+----
+
+
+
+
+

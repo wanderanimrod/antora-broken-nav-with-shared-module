@@ -1,11 +1,11 @@
 * Topic 1
 +
 --
-include::chapter-1:partial$topic-1-nav.adoc[]
+include::book:chapter-1:partial$topic-1-nav.adoc[]
 --
 
 * Topic 2
 +
 --
-include::chapter-1:partial$topic-2-nav.adoc[]
+include::book:chapter-1:partial$topic-2-nav.adoc[]
 --
