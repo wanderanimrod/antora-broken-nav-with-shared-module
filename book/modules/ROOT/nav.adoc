@@ -1,8 +1,6 @@
 * Chapter 1
 //try to inject the content of chapter-1/partials/nav.adoc in this list as a child of the `Chapter 1` top level item, and preserve the nesting specified in the partial.
-+
---
+
 include::chapter-1:partial$nav.adoc[]
---
 
 //what happens instead is that only the first item from the partial is nested, and the rest are inserted at the top level of this nav file's list!
