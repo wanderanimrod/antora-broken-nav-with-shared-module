@@ -1,0 +1,5 @@
+* Module A
++
+--
+include::shared:partial$common-nav.adoc[]
+--

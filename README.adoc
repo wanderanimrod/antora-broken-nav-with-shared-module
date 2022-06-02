@@ -2,11 +2,9 @@
 
 == What I am trying to do
 
-I am trying to build a navigation menu by composing multiple nav files with the `include::` directive.
-The first nav file includes another nav file which in turn includes another nav file.
-I want the rendered nav to contain 3 levels (equal to the number of levels of nesting I have in the files).
+I have two antora modules (named `mod-A` and `mod-B`) that share content (pages and navs) stored in a third module ( called `shared`). The two modules that use the content appear in the nav menu but the `shared` module doesn't. It is just a holder for shared content that is supposed to be reused.
 
-Antora (perhaps AsciiDoc) is mangling the rendered nav and I have failed to get it working! See xref:reproduce[this section] for instructions on how to build the site in this repo to see the error on your machine
+The `shared` module has navs that are imported by the navs of `mod-A` and `mod-B`. These shared navs contain `xref`s that point to pages within the `shared` module. The problem I have is that when those links are clicked on (either in `mod-A` or `mod-B` 's nav lists), they always change the active item in the menu tree to the first module that imports the shared nav (in this case `mod-A`). Read on for a more detailed description.
 
 == Antora setup
 
@@ -14,15 +12,15 @@ Antora (perhaps AsciiDoc) is mangling the rendered nav and I have failed to get 
 There's just one content source (local), and the ui bundle config (default UI).
 . All the antora assets/files are under the `book` directory at the root of this repo
 . We only have one component called `book`, under the `book` directory.
-. The `book` component has two modules:
-.. `ROOT`: It just has the root navigation file `nav.adoc` and an index page.
-.. `chapter-1`: It has 3 navigation files under `partials`.
-. I am trying to compose the `ROOT/nav.adoc`, `chapter-1/partials/nav.adoc`, `chapter-1/partials/topic-1-nav.adoc`  and `chapter-1/partials/topic-2-nav.adoc`
-into a nav menu with 3 levels.
-. `ROOT/nav.adoc` "imports" `chapter-1/partials/nav.adoc` with and `include::` directive, and `chapter-1/partials/nav.adoc` imports both `topic-1-nav.adoc` and `topic-2-nav.adoc` into it, but not at the top level.
+. The `book` component has 3 modules:
+.. `shared`: It contains pages and nav partials that are supposed to be reused in the other two modules described below. The `partials/common-nav.adoc` file has `xref` s pointing to pages in this same `shared` module. This nav partial is imported into the other two modules' navs.
+.. `mod-A`: It has a `nav.adoc` at its root, which imports nav lists from the `shared` module's nav partial
+.. `mod-B`: It has a `nav.adoc` at its root, which imports nav lists from the `shared` module's nav partial
+. The `book` component descriptor file (`antora.yml`) declares only the navs from `mod-A` and `mod-B`, in that order. This means that the `shared` module will not show up in the rendered site's navigation, but the navigation lists of the other modules will be built using the `common-nav.adoc` partial in the `shared` module.
 
 == Expected behaviour
 
+The nav menus are built okay, but when you click on
 A nav menu that looks like this:
 
 * Chapter 1

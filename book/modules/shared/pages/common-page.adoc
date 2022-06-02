@@ -1,0 +1,3 @@
+= A common page
+
+Both modules `mod-A` and `mod-B` should link here but still keep the left-nav menu highlight context.

@@ -1,3 +1,4 @@
-= My book
+= Bug demo
 
-This books navigation menu is broken :(
+This is just a landing page.
+See the README in this repo for a description of the bug.

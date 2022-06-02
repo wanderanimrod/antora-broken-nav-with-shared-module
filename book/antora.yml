@@ -3,5 +3,5 @@ name: book
 title: Book
 version: latest
 nav:
-  - modules/chapter-1/nav.adoc
-  - modules/chapter-2/nav.adoc
+  - modules/mod-A/nav.adoc
+  - modules/mod-B/nav.adoc
