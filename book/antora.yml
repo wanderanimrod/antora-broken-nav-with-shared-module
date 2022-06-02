@@ -2,6 +2,7 @@ name: book
 
 title: Book
 version: latest
+start_page: ROOT:index.adoc
 nav:
   - modules/mod-A/nav.adoc
   - modules/mod-B/nav.adoc
