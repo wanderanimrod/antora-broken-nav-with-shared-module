@@ -1,4 +1,4 @@
-= Deeply nested nav files with `include::`
+= Navigation highlighting is broken? for navs with multiple entries to the same page
 
 == What I am trying to do
 
@@ -18,43 +18,18 @@ There's just one content source (local), and the ui bundle config (default UI).
 .. `mod-B`: It has a `nav.adoc` at its root, which imports nav lists from the `shared` module's nav partial
 . The `book` component descriptor file (`antora.yml`) declares only the navs from `mod-A` and `mod-B`, in that order. This means that the `shared` module will not show up in the rendered site's navigation, but the navigation lists of the other modules will be built using the `common-nav.adoc` partial in the `shared` module.
 
+== Actual behaviour (the "bug?")
+The nav menus are built okay, but when you open the built site, expand the `Module B` menu item, and click the `Link to common page` item, the menu highlights the `Link to common page` menu item in `Module A` instead of `Module B`.
+
+[NOTE]
+====
+. This "loss of context" also affects the next/prev navigation links at the bottom of pages. The context for those goes into `Module A` just like the nav menu.
+. If I change the order in which the navs are declared in `antora.yml` to import `mod-B/nav.yml` before `mod-A/nav.yml`, the reverse happens. `Module B` 's nav section always gets highlighted.
+====
+
 == Expected behaviour
 
-The nav menus are built okay, but when you click on
-A nav menu that looks like this:
-
-* Chapter 1
-** Topic 1
-*** Lesson 1
-*** Lesson 2
-** Topic 2
-*** Lesson 1
-*** Lesson 2
-
-== Actual behaviour
-
-If you look at the nav menu on the left (xref:#browser[in the browser]), the list items are mangled, and some are missing!
-For quick reference, here's the broken nav menu I get:
-
-* Chapter 1
-** Topic 1
-* Lesson 1
-* Lesson 2
-* Lesson 1
-* Lesson 2
-
-Interestingly, IntelliJ's Asciidoctor extension is also broken, but not in teh same way.
-It preserves all the list items, but the nesting is still broken.
-This is what it renders:
-
-* Chapter 1
-** Topic 1
-* Lesson 1
-* Lesson 2
-* Topic 2
-* Lesson 1
-* Lesson 2
-
+I would like to see `Module B` 's `Link to shared page` menu item highlighted when I click it under `Module B`.
 
 == How to reproduce the problem [[reproduce]]
 
@@ -63,8 +38,8 @@ This is what it renders:
 [source,bash]
 ----
 # clone this repo
-git clone https://github.com/wanderanimrod/antora-deep-nav-nesting.git
-cd antora-deep-nav-nesting
+git clone https://github.com/wanderanimrod/antora-broken-nav-with-shared-module.git
+cd antora-broken-nav-with-shared-module
 ----
 
 . Build the site
@@ -82,6 +57,10 @@ npx antora generate playbook.yml --stacktrace
 ----
 open build/site/index.html
 ----
+
+. Expand the `Module B` item in the nav.
+. Click on the `Link to shared page` sub item.
+. Notice that the navigation to the page happens, but the menu highlight context (and the breadcrumbs) switch to `Module A`. It should remain in `Module B`.
 
 
 
