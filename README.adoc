@@ -1,4 +1,4 @@
-= Navigation highlighting is broken? for navs with multiple entries to the same page
+= Is nav highlighting broken for navs with multiple entries to the same page?
 
 == What I am trying to do
 
