@@ -1,7 +1,3 @@
-antora:
-  extensions:
-    - ./extensions/navigator-extension
-
 site:
   title: My book
   start_page: book::index.adoc
@@ -16,4 +12,3 @@ ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
-  supplemental_files: ./supplemental-ui
