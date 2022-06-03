@@ -1,1 +1,1 @@
-* xref:{module-name}:shared/common-page.adoc[Link to common page]
+* xref:{page-module}:shared/common-page.adoc[Link to common page]

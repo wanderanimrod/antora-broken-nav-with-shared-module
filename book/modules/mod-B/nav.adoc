@@ -1,5 +1,3 @@
-:module-name: {page-module}
-
 * Module B
 +
 --
